@@ -17,5 +17,11 @@
       "16": "icons/icon16.png",
       "32": "icons/icon32.png"
     }
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://fulfillment.eiz.com.au/*"],
+      "js": ["content.js"]
+    }
+  ]
 }
