@@ -81,6 +81,18 @@ document.addEventListener('focusin', (event) => {
     return;
   }
 
+  // Check every value before writing anything, so a bad product never leaves
+  // the row half-filled or showing "undefined".
+  const missing = [];
+  for (const f of row_fields) {
+    const name = f.getAttribute('formcontrolname');
+    if (typeof product[name] !== 'number') missing.push(name);
+  }
+  if (missing.length > 0) {
+    reportError(`Product "${product.name}" has no value for: ${missing.join(', ')}.`, product);
+    return;
+  }
+
   // Qty is required, and new rows from "Add Package" start with it empty.
   const qty = row.querySelector(QTY_SELECTOR);
   if (qty) qty.value = 1
